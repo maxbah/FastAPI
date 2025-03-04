@@ -1,0 +1,13 @@
+# Uvicorn
+uvicorn app.main:app
+http://127.0.0.1:8000
+uvicorn app.main:app --reload
+
+
+# Migration
+alembic init -t async migration
+
+alembic revision --autogenerate -m "Initial revision"
+
+# Docker
+docker-compose up -d
