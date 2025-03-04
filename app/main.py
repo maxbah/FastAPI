@@ -2,10 +2,10 @@ from http.client import HTTPException
 
 from fastapi import FastAPI
 
-from app.models import Student, UpdateFilter, StudentUpdate, DeleteFilter
+from old_models.models import Student, UpdateFilter, StudentUpdate, DeleteFilter
 from js_db import add_student, upd_student, dell_student
 from utils import json_to_dict_list
-from typing import Optional, Any, List
+from typing import Optional, List
 
 import os
 

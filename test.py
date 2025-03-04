@@ -2,7 +2,7 @@ from datetime import date
 
 from pydantic import ValidationError
 
-from app.models import Student
+from old_models.models import Student
 
 # def get_stud_id_param_request(st_id: int):
 #     url = "http://127.0.0.1:8000/students/id"
