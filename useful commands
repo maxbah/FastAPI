@@ -7,7 +7,7 @@ uvicorn app.main:app --reload
 # Migration
 alembic init -t async migration
 
-alembic revision --autogenerate -m "Initial revision"
+alembic revision --autogenerate -m "is_user=false"
 
 # Docker
 docker-compose up -d

@@ -1,8 +1,9 @@
-from datetime import date
-
-from pydantic import ValidationError
-
-from old_models.models import Student
+# from datetime import date
+# from http.client import responses
+#
+# from pydantic import ValidationError
+#
+# from old_models.models import Student
 
 # def get_stud_id_param_request(st_id: int):
 #     url = "http://127.0.0.1:8000/students/id"
@@ -68,29 +69,54 @@ from old_models.models import Student
 #
 # students = get_students_with_param_mix(2, major=None, enrollment_year=2018)
 # print(students)
+#
+# student_data = {
+#     "student_id": 1,
+#     "phone_number": "+1234567890",
+#     "first_name": "Иван",
+#     "last_name": "Иванов",
+#     "date_of_birth": date(2000, 1, 1),
+#     "email": "ivan.ivanov@example.com",
+#     "address": "Москва, ул. Пушкина, д. Колотушкина",
+#     "enrollment_year": 2042,
+#     "major": "Информатика",
+#     "course": 6,
+#     "special_notes": "Увлекается программированием"
+# }
+#
+#
+# def test_valid_student(data: dict) -> None:
+#     try:
+#         student = Student(**data)
+#         print(student)
+#     except ValidationError as e:
+#         print(f"Ошибка валидации: {e}")
+#
+#
+#
+# print(f'RES: {test_valid_student(student_data)}')
 
-student_data = {
-    "student_id": 1,
-    "phone_number": "+1234567890",
-    "first_name": "Иван",
-    "last_name": "Иванов",
-    "date_of_birth": date(2000, 1, 1),
-    "email": "ivan.ivanov@example.com",
-    "address": "Москва, ул. Пушкина, д. Колотушкина",
-    "enrollment_year": 2042,
-    "major": "Информатика",
-    "course": 6,
-    "special_notes": "Увлекается программированием"
-}
+# API testing using httpx
+import asyncio
+import httpx
 
 
-def test_valid_student(data: dict) -> None:
-    try:
-        student = Student(**data)
-        print(student)
-    except ValidationError as e:
-        print(f"Ошибка валидации: {e}")
+async def add_major(major_name: str, major_description: str):
+    url = 'http://127.0.0.1:8000/majors/add/'
+    headers = {
+        'accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+    data = {
+        "major_name": major_name,
+        "major_description": major_description,
+        "count_students": 0
+    }
+    async with httpx.AsyncClient() as client:
+        resp = await client.post(url, headers=headers, json=data)
+        print('RESP: ', resp)
+        return resp.json()
 
-
-
-print(f'RES: {test_valid_student(student_data)}')
+# вызов функции
+response = asyncio.run(add_major(major_name='Философия', major_description='Тут мы обучаем философов'))
+print(response)
