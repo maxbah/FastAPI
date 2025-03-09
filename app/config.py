@@ -5,7 +5,8 @@ DB_PORT = '5432'
 DB_NAME = 'fast_api'
 DB_USER = 'postgres'
 DB_PASSWORD = 'admin'
-
+SECRET_KEY='gV64m9aIzFG4qpgVphvQbPQrtAO0nM-7YwwOvu0XPt5KJOjAy4AfgLkqJXYEt'
+ALGORITHM='HS256'
 
 class Settings(BaseSettings):
     DB_HOST: str
@@ -13,8 +14,14 @@ class Settings(BaseSettings):
     DB_NAME: str
     DB_USER: str
     DB_PASSWORD: str
+    SECRET_KEY: str
+    ALGORITHM: str
 
 
 def get_db_url():
     return (f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@"
             f"{DB_HOST}:{DB_PORT}/{DB_NAME}")
+
+
+def get_auth_data():
+    return {"secret_key": SECRET_KEY, "algorithm": ALGORITHM}
