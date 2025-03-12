@@ -3,6 +3,8 @@ uvicorn app.main:app
 http://127.0.0.1:8000
 uvicorn app.main:app --reload
 
+# Запуск как модуль а не отдельный скрипт
+python -m app.main
 
 # Migration
 alembic init -t async migration

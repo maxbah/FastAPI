@@ -1,7 +1,10 @@
+import uvicorn
 from fastapi import FastAPI
 from app.students.router import router as router_students
 from app.majors.router import router as router_majors
-from app.users.router import router as router_user
+from app.users.router import router as router_users
+from app.pages.router import router as router_pages
+from app.authx.router import router as router_authx
 import os
 import psutil
 
@@ -22,6 +25,11 @@ def iquit():
         child.kill()
     parent.kill()
 
+app.include_router(router_authx)
 app.include_router(router_students)
 app.include_router(router_majors)
-app.include_router(router_user)
+app.include_router(router_users)
+app.include_router(router_pages)
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)
