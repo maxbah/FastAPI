@@ -1,3 +1,4 @@
+# Пример кастомной авторизации с использование jwt
 from jose import jwt
 from datetime import datetime, timedelta, timezone
 
