@@ -98,25 +98,128 @@
 
 # API testing using httpx
 import asyncio
+from itertools import count
+
 import httpx
 
 
-async def add_major(major_name: str, major_description: str):
-    url = 'http://127.0.0.1:8000/majors/add/'
-    headers = {
-        'accept': 'application/json',
-        'Content-Type': 'application/json'
-    }
-    data = {
-        "major_name": major_name,
-        "major_description": major_description,
-        "count_students": 0
-    }
-    async with httpx.AsyncClient() as client:
-        resp = await client.post(url, headers=headers, json=data)
-        print('RESP: ', resp)
-        return resp.json()
+# async def add_major(major_name: str, major_description: str):
+#     url = 'http://127.0.0.1:8000/majors/add/'
+#     headers = {
+#         'accept': 'application/json',
+#         'Content-Type': 'application/json'
+#     }
+#     data = {
+#         "major_name": major_name,
+#         "major_description": major_description,
+#         "count_students": 0
+#     }
+#     async with httpx.AsyncClient() as client:
+#         resp = await client.post(url, headers=headers, json=data)
+#         print('RESP: ', resp)
+#         return resp.json()
+#
+# # вызов функции
+# response = asyncio.run(add_major(major_name='Философия', major_description='Тут мы обучаем философов'))
+# print(response)
 
-# вызов функции
-response = asyncio.run(add_major(major_name='Философия', major_description='Тут мы обучаем философов'))
-print(response)
+class Sum:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+    def meth_mult(self):
+        return self.a*self.b
+    def method_sum(self):
+        return 'instance method called', self, self.a+self.b
+    @classmethod
+    def classmethod_sum(cls):
+        return 'class method called', cls
+    @staticmethod
+    def staticmethod():
+        return 'A static method called'
+
+class Min(Sum):
+    def __init__(self, a, b, c):
+        super().__init__(a, b)
+        self.c = c
+
+    def method_min(self):
+        super().method_sum()
+        return self.a - self.b
+    @classmethod
+    def class_method_min(cls):
+        return cls
+    @staticmethod
+    def stat_min():
+        return 'B Static method'
+#
+# s = Sum(2,3)
+# print(s.method_sum())
+
+# m=Min(4, 3)
+# print(m.method_min())
+# print(m.method_min())
+# print(m.method_sum())
+# print(m.meth_mult())
+
+class Singleton():
+
+    __isinstance = None
+
+    # def __new__(cls, *args, **kwargs):
+    #     if cls.__isinstance is None:
+    #         cls.__isinstance = super(Singleton, cls).__new__(cls, *args, **kwargs)
+    #     return cls.__isinstance
+
+sin1 = Singleton()
+sin2 = Singleton()
+
+print(sin1.__dir__)
+print(sin2.__dir__)
+print(sin1 is sin2)
+
+def decor(c, d):
+    def decorate(func):
+        def wrapper(*args, **kwargs):
+            print(1)
+            func(c, d, *args, **kwargs)
+            print(2)
+        return wrapper
+    return decorate
+
+
+@decor(1, 2)
+def to_decorate(c, d, a, b):
+    print(f'Decorated {a+b+c+d}')
+
+
+print(to_decorate(3,5))
+
+
+class N:
+    count = 0
+
+    def __init__(self):
+        self.__class__.count += 1
+
+    @classmethod
+    def obj_count(cls):
+        return cls.count
+
+
+x = N()
+print(x.obj_count())
+n = N()
+print(n.obj_count())
+
+
+k=('a', 'b', 'c', 'd')
+d={'a2':'a1', 'b':'b', 'c':'c1', 'd':'d'}
+
+for i in k:
+    print(i)
+print(*k +(1,))
+print(d)
+print(*d)
+
+
