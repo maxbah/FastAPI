@@ -5,7 +5,8 @@ from app.majors.router import router as router_majors
 from app.users.router import router as router_users
 from app.pages.router import router as router_pages
 from app.authx.router import (router as router_authx,
-                              email_router as router_email)
+                              email_router as router_email,
+                              files_router as router_file)
 import os
 import psutil
 
@@ -27,6 +28,7 @@ def iquit():
     parent.kill()
 
 
+app.include_router(router_file)
 app.include_router(router_email)
 app.include_router(router_authx)
 app.include_router(router_students)
