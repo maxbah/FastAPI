@@ -84,3 +84,8 @@ def get_protected():
         return {"message": "Secured data"}
     except MissingTokenError as e:
         raise HTTPException(401, detail={"message": str(e)}) from e
+
+@router.post('/logoutx', summary='Разлогиниться через AuthX')
+async def logout_user(response: Response):
+    response.delete_cookie(key=config.JWT_ACCESS_COOKIE_NAME)
+    return {'message': 'Пользователь успешно вышел из системы'}
