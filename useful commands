@@ -8,8 +8,27 @@ python -m app.main
 
 # Migration
 alembic init -t async migration
-
-alembic revision --autogenerate -m "is_user=false"
+alembic revision --autogenerate -m "comment"
 
 # Docker
-docker-compose up -d
+docker build -t docker_image_name .
+docker images
+docker image rm image_name
+docker container ps -a
+docker run --name=docker_container_name -p 1234:8000 docker_image_name
+docker start cont_name
+docker stop cont_name
+docker rm cont_name
+
+docker exec -it docker_container_name bash
+
+docker-compose up --build -d
+docker-compose down
+docker logs <CONTAINER ID>
+docker ps
+docker exec -it <CONTAINER ID> /bin/bash
+
+psql -U postgres;
+ALTER ROLE postgres WITH PASSWORD 'postgres';
+GRANT ALL PRIVILEGES ON DATABASE fast_api TO postgres;
+psql -U postgres -d database_name
