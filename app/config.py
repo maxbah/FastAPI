@@ -1,10 +1,11 @@
 from pydantic_settings import BaseSettings
 
-DB_HOST = 'localhost'
+#DB_HOST = 'localhost'
+DB_HOST = 'db'
 DB_PORT = '5432'
 DB_NAME = 'fast_api'
 DB_USER = 'postgres'
-DB_PASSWORD = 'admin'
+DB_PASSWORD = 'postgres'
 SECRET_KEY='gV64m9aIzFG4qpgVphvQbPQrtAO0nM-7YwwOvu0XPt5KJOjAy4AfgLkqJXYEt'
 ALGORITHM='HS256'
 

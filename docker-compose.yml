@@ -1,0 +1,29 @@
+
+services:
+  app:
+    container_name: my_fast_api_d_c
+    build: .
+    external_links:
+      - my_pg_db_d_c:my_pg_db_d_c
+    ports:
+      - "8008:8000"
+    depends_on:
+      - db
+    command: bash -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+    restart: always
+  db:
+    image: postgres:12.0-alpine
+    container_name: my_pg_db_d_c
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=fast_api
+    restart: always
+
+volumes:
+  postgres_data:
