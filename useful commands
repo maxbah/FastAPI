@@ -11,11 +11,11 @@ alembic init -t async migration
 alembic revision --autogenerate -m "comment"
 
 # Docker
-docker build -t docker_image_name .
+docker build -t fast_api_demo .
 docker images
 docker image rm image_name
 docker container ps -a
-docker run --name=docker_container_name -p 1234:8000 docker_image_name
+docker run --name=fast_api_demo_cont -p 8009:8000 fast_api_demo
 docker start cont_name
 docker stop cont_name
 docker rm cont_name

@@ -20,8 +20,9 @@ class Settings(BaseSettings):
 
 
 def get_db_url():
-    return (f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@"
-            f"{DB_HOST}:{DB_PORT}/{DB_NAME}")
+    return "postgresql+asyncpg://fast_api_bysy_user:LpWxVgVkIvi3mmglbGEU2ercJvAe3xE9@dpg-cvc2gh2n91rc73cgbbsg-a.oregon-postgres.render.com/fast_api_bysy"
+    # return (f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@"
+    #         f"{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
 
 def get_auth_data():
