@@ -1,7 +1,7 @@
 from pydantic_settings import BaseSettings
 
-DB_HOST = 'localhost'
-#DB_HOST = 'db'
+#DB_HOST = 'localhost'
+DB_HOST = 'db'
 DB_PORT = '5432'
 DB_NAME = 'fast_api'
 DB_USER = 'postgres'

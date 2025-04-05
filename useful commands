@@ -32,3 +32,7 @@ psql -U postgres;
 ALTER ROLE postgres WITH PASSWORD 'postgres';
 GRANT ALL PRIVILEGES ON DATABASE fast_api TO postgres;
 psql -U postgres -d database_name
+
+
+#celery
+celery -A tasks worker --pool=solo -l info
