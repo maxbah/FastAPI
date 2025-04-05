@@ -7,15 +7,18 @@ from app.pages.router import router as router_pages
 from app.authx.router import (router as router_authx,
                               email_router as router_email,
                               files_router as router_file)
+from app.items.router import router as router_item
+from app.orders.router import router as router_order
+
 from fastapi.middleware.cors import CORSMiddleware
 
 import os
 import psutil
 
-
 app = FastAPI()
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
+
 
 @app.get("/")
 def home_page():
@@ -31,6 +34,8 @@ def iquit():
     parent.kill()
 
 
+app.include_router(router_order)
+app.include_router(router_item)
 app.include_router(router_file)
 app.include_router(router_email)
 app.include_router(router_authx)
@@ -38,6 +43,6 @@ app.include_router(router_students)
 app.include_router(router_majors)
 app.include_router(router_users)
 app.include_router(router_pages)
-#
-# if __name__ == "__main__":
-#     uvicorn.run("main:app", host="0.0.0.0", port=8000) #0.0.0.0.0 for docker, else 127.0.0.1
+
+if __name__ == "__main__":
+    uvicorn.run("app.main:app", host="127.0.0.1", port=8000)  # 0.0.0.0.0 for docker, else 127.0.0.1
