@@ -14,6 +14,10 @@ from app.database import DATABASE_URL, Base
 from app.students.models import Student
 from app.majors.models import Major
 from app.users.models import User
+from app.items.models import Item
+from app.orders.models import Order
+from app.order_items_association import order_item_association_table
+
 
 config = context.config
 config.set_main_option("sqlalchemy.url", DATABASE_URL)
