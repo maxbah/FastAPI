@@ -1,3 +1,4 @@
+import asyncio
 from fastapi import FastAPI
 import uvicorn
 from app.students.router import router as router_students
@@ -9,15 +10,23 @@ from app.authx.router import (router as router_authx,
                               files_router as router_file)
 from app.items.router import router as router_item
 from app.orders.router import router as router_order
-
+from app.currency.router import router as router_currency
 from fastapi.middleware.cors import CORSMiddleware
+from app.events.startup import on_startup, on_loop_startup
+
 
 import os
 import psutil
 
+
 app = FastAPI()
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
+
+@app.on_event("startup")
+async def startup_event():
+    await asyncio.create_task(on_startup())
+    await asyncio.create_task(on_loop_startup())
 
 
 @app.get("/")
@@ -34,6 +43,7 @@ def iquit():
     parent.kill()
 
 
+app.include_router(router_currency)
 app.include_router(router_order)
 app.include_router(router_item)
 app.include_router(router_file)
