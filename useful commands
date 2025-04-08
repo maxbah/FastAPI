@@ -36,3 +36,8 @@ psql -U postgres -d database_name
 
 #celery
 celery -A tasks worker --pool=solo -l info
+
+#rabbitmq
+rabbitmqctl list_queues
+rabbitmqctl list_exchanges
+rabbitmqctl list_bindings
