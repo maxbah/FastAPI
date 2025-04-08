@@ -9,9 +9,13 @@ services:
       - "8008:8000"
     depends_on:
       - db
+      - redis
     command: bash -c "uvicorn app.main:app --host 0.0.0.0 --port 8000"
-
     restart: always
+    environment:
+      - API_REDIS_HOST=redis
+    env_file:
+      - .env
   db:
     image: postgres:12.0-alpine
     container_name: my_pg_db_d_c
@@ -34,7 +38,16 @@ services:
       - RABBITMQ_DEFAULT_PASS=guest
     volumes:
       - 'rabbitmq_data:/data'
-
+  redis:
+    container_name: redis
+    build:
+      context: .
+      dockerfile: redis/Dockerfile
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    ports:
+      - "6379:6379"
 
 volumes:
   postgres_data:
