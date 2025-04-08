@@ -13,20 +13,31 @@ from app.orders.router import router as router_order
 from app.currency.router import router as router_currency
 from fastapi.middleware.cors import CORSMiddleware
 from app.events.startup import on_startup, on_loop_startup
+from contextlib import asynccontextmanager
 
 
 import os
 import psutil
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Before
+    print("Before start app")
+    await asyncio.create_task(on_startup())
+    await asyncio.create_task(on_loop_startup())
 
-app = FastAPI()
+    yield
+    # After
+    print("After all")
+
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
 
-@app.on_event("startup")
-async def startup_event():
-    await asyncio.create_task(on_startup())
-    await asyncio.create_task(on_loop_startup())
+# @app.on_event("startup")
+# async def startup_event():
+#     await asyncio.create_task(on_startup())
+#     await asyncio.create_task(on_loop_startup())
 
 
 @app.get("/")
